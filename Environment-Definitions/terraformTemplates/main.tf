@@ -24,16 +24,17 @@ resource "azapi_resource" "serverFarm" {
   location = var.location
   name = var.functionPlanName
   parent_id = azurerm_resource_group.rg.id
-  body = jsonencode({
+  body = {
       kind = "functionapp",
       sku = {
         tier = "FlexConsumption",
         name = "FC1"
       },
       properties = {
-        reserved = true
+        reserved = "true"
       }
-  })
+  }
+
 }
 
 resource "azurerm_storage_account" "storageAccount" {
