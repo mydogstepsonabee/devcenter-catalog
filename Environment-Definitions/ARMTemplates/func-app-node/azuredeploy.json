@@ -9,6 +9,14 @@
       }
     },
     "parameters": {
+        "tagName": {
+      "type": "string",
+      "defaultValue": "azd-service-name"
+    },
+    "tagValue": {
+      "type": "string",
+      "defaultValue": "api"
+    },
       "appName": {
         "type": "string",
         "defaultValue": "[format('fnapp{0}', uniqueString(resourceGroup().id))]",
@@ -74,7 +82,10 @@
         "kind": "Storage",
         "properties": {
           "supportsHttpsTrafficOnly": true,
-          "defaultToOAuthAuthentication": true
+          "defaultToOAuthAuthentication": true,
+          "tags": {
+          "[parameters('tagName')]": "[parameters('tagValue')]"
+        }
         }
       },
       {
@@ -86,7 +97,11 @@
           "name": "Y1",
           "tier": "Dynamic"
         },
-        "properties": {}
+        "properties": {
+            "tags": {
+          "[parameters('tagName')]": "[parameters('tagValue')]"
+        }
+        }
       },
       {
         "type": "Microsoft.Web/sites",
@@ -99,6 +114,9 @@
         },
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "tags": {
+          "[parameters('tagName')]": "[parameters('tagValue')]"
+        },
           "siteConfig": {
             "appSettings": [
               {
@@ -149,7 +167,10 @@
         "kind": "web",
         "properties": {
           "Application_Type": "web",
-          "Request_Source": "rest"
+          "Request_Source": "rest",
+          "tags": {
+          "[parameters('tagName')]": "[parameters('tagValue')]"
+        }
         }
       }
     ]
