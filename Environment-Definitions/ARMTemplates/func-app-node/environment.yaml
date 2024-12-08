@@ -1,0 +1,5 @@
+name: function-app
+summary: Deploys functionapp with node.js
+description: Deploys an Azure function with node.js runtime
+runner: ARM
+templatePath: azuredeploy.json
