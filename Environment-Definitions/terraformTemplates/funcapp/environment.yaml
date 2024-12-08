@@ -2,5 +2,5 @@ name: Function-App-with-terraform
 version: 1.0.0
 summary: Azure Function APP with terraform
 description: Deploys an Azure Function App with Terraform, it is compatible with azd.
-runner: Terraform
+runner: docker.io/hashicorp/terraform
 templatePath: main.tf
