@@ -9,14 +9,13 @@
       }
     },
     "parameters": {
-        "tagName": {
-      "type": "string",
-      "defaultValue": "azd-service-name"
-    },
-    "tagValue": {
-      "type": "string",
-      "defaultValue": "api"
-    },
+        "tags": {
+            "type": "object",
+            "defaultValue": {"azd-service-name" : "api"},
+            "metadata": {
+              "description": "Tags to apply to environment resources"
+            }
+          },
       "appName": {
         "type": "string",
         "defaultValue": "[format('fnapp{0}', uniqueString(resourceGroup().id))]",
@@ -38,14 +37,14 @@
       },
       "location": {
         "type": "string",
-        "defaultValue": "japaneast",
+        "defaultValue": "westeurope",
         "metadata": {
           "description": "Location for all resources."
         }
       },
       "appInsightsLocation": {
         "type": "string",
-        "defaultValue": "japaneast",
+        "defaultValue": "westeurope",
         "metadata": {
           "description": "Location for Application Insights"
         }
@@ -83,9 +82,7 @@
         "properties": {
           "supportsHttpsTrafficOnly": true,
           "defaultToOAuthAuthentication": true,
-          "tags": {
-          "[parameters('tagName')]": "[parameters('tagValue')]"
-        }
+          "tags": "[parameters('tags')]"
         }
       },
       {
@@ -98,9 +95,7 @@
           "tier": "Dynamic"
         },
         "properties": {
-            "tags": {
-          "[parameters('tagName')]": "[parameters('tagValue')]"
-        }
+            "tags": "[parameters('tags')]"
         }
       },
       {
@@ -114,9 +109,7 @@
         },
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
-          "tags": {
-          "[parameters('tagName')]": "[parameters('tagValue')]"
-        },
+         "tags": "[parameters('tags')]",
           "siteConfig": {
             "appSettings": [
               {
@@ -168,9 +161,7 @@
         "properties": {
           "Application_Type": "web",
           "Request_Source": "rest",
-          "tags": {
-          "[parameters('tagName')]": "[parameters('tagValue')]"
-        }
+          "tags": "[parameters('tags')]"
         }
       }
     ]
